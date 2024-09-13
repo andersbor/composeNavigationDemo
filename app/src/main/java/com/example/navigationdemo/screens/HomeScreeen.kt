@@ -5,10 +5,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,78 +20,69 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.navigationdemo.NavRoutes
 
+@OptIn(ExperimentalMaterial3Api::class) // TopAppBar
 @Composable
 fun Home(navController: NavHostController) {
     var userName by rememberSaveable { mutableStateOf("") }
-    val onUserNameChange = { text: String -> userName = text }
-    var errorMessage by remember { mutableStateOf("") }
 
-    Scaffold { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Registration") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+            )
+        },
+    ) { innerPadding ->
+        Register(
+            userName, { userName = it },
+            onNavigate = { navController.navigate(NavRoutes.Welcome.route + "/$userName") },
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
+}
+
+@Composable
+fun Register(
+    username: String,
+    onUserNameChange: (String) -> Unit,
+    onNavigate: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(value = username, onValueChange = onUserNameChange,
+            label = { Text("Enter your name") },
+            isError = username.trim().isEmpty(),
+            supportingText = { if (username.isEmpty()) Text(text = "Please enter your name") }
+        )
+
+        Spacer(modifier = Modifier.size(30.dp))
+
+        Button(
+            onClick = {
+                onUserNameChange(username.trim())
+                onNavigate()
+            },
+            enabled = username.trim().isNotEmpty()
         ) {
-            CustomTextField(
-                title = "Enter your name",
-                textState = userName,
-                onTextChange = onUserNameChange
-            )
-
-            Text(
-                text = if (errorMessage != "") errorMessage else "",
-                style = TextStyle(color = MaterialTheme.colorScheme.error, fontSize = 20.sp)
-            )
-
-            Spacer(modifier = Modifier.size(30.dp))
-
-            Button(onClick = {
-                userName = userName.trim()
-                if (userName.isEmpty()) {
-                    errorMessage = "Please enter your name"
-                    return@Button
-                } else {
-                    errorMessage = ""
-                }
-                navController.navigate(NavRoutes.Welcome.route + "/$userName")
-            }) {
-                Text("Register")
-            }
+            Text("Register")
         }
     }
 }
 
-
+@Preview(showBackground = true)
 @Composable
-// error is field is empty
-fun CustomTextField(
-    title: String,
-    textState: String,
-    onTextChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        value = textState,
-        onValueChange = { onTextChange(it) },
-        singleLine = true,
-        label = { Text(text = title) },
-        modifier = Modifier.padding(10.dp),
-        textStyle = TextStyle(fontWeight = FontWeight.Bold, fontSize = 30.sp),
-        isError = textState.isEmpty()
-        //supportingText = "supporting text"
-    )
-}
-
-@Preview
-@Composable
-fun CustomTextFieldPreview() {
-    var name by remember { mutableStateOf("") }
-    CustomTextField(title = "Enter your name", textState = name,
-        onTextChange = { name = it })
+fun RegisterPreview() {
+    val username by remember { mutableStateOf("John Doe") }
+    Register(username = username, onUserNameChange = {}, onNavigate = {})
 }
