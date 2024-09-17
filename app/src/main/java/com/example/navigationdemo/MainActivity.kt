@@ -33,10 +33,17 @@ fun MainScreen() {
             Home(navController)
         }
         composable(NavRoutes.Welcome.route + "/{userName}") { backstackEntry ->
-            val userName = backstackEntry.arguments?.getString("userName")
-            Welcome(navController, userName)
+            val username = backstackEntry.arguments?.getString("userName")
+            Welcome(
+                username = username,
+                // navController should not be passed down to the composable
+                onGoProfile = { navController.navigate(NavRoutes.Profile.route) },
+                onGoBack = { navController.popBackStack() })
         }
-        composable(NavRoutes.Profile.route) {
+        composable(
+            NavRoutes.Profile.route
+            // animations https://developer.android.com/develop/ui/compose/animation/composables-modifiers#animatedcontent
+        ) {
             Profile()
         }
     }

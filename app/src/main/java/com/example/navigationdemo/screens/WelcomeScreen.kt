@@ -13,27 +13,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.navigationdemo.NavRoutes
 
 @Composable
-fun Welcome(navController: NavController, userName: String?) {
+fun Welcome(username: String?, onGoProfile: () -> Unit, onGoBack: () -> Unit) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Welcome $userName", style = MaterialTheme.typography.headlineLarge)
+            Text(text = "Welcome $username", style = MaterialTheme.typography.headlineLarge)
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = { navController.navigate(NavRoutes.Profile.route) }) {
+            Button(onClick = { onGoProfile() }) {
                 Text("Set up your profile")
             }
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = { navController.popBackStack() }) {
+            Button(onClick = { onGoBack() }) {
                 Text("Go back")
             }
         }
