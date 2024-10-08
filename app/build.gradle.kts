@@ -67,5 +67,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.androidx.navigation.compose) // obs
+    //implementation(libs.androidx.navigation.compose) // obs
+    implementation("androidx.navigation:navigation-compose:2.8.2")
 }
