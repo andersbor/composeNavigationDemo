@@ -30,15 +30,15 @@ fun MainScreen() {
 
     NavHost(navController = navController, startDestination = NavRoutes.Home.route) {
         composable(NavRoutes.Home.route) {
-            Home(navController)
+            Home(navController = navController)
         }
         composable(NavRoutes.Welcome.route + "/{userName}") { backstackEntry ->
             val username = backstackEntry.arguments?.getString("userName")
             Welcome(
                 username = username,
                 // navController should not be passed down to the composable
-                onGoProfile = { navController.navigate(NavRoutes.Profile.route) },
-                onGoBack = { navController.popBackStack() })
+                navigateToProfile = { navController.navigate(NavRoutes.Profile.route) },
+                navigateBack = { navController.popBackStack() })
         }
         composable(
             NavRoutes.Profile.route

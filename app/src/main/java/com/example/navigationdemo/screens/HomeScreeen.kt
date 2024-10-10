@@ -43,7 +43,7 @@ fun Home(navController: NavHostController) {
     ) { innerPadding ->
         Register(
             userName, { userName = it },
-            onNavigate = { navController.navigate(NavRoutes.Welcome.route + "/$userName") },
+            navigateToNext = { navController.navigate(NavRoutes.Welcome.route + "/$userName") },
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -53,7 +53,7 @@ fun Home(navController: NavHostController) {
 fun Register(
     username: String,
     onUserNameChange: (String) -> Unit,
-    onNavigate: () -> Unit,
+    navigateToNext: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -71,7 +71,7 @@ fun Register(
         Button(
             onClick = {
                 onUserNameChange(username.trim())
-                onNavigate()
+                navigateToNext()
             },
             enabled = username.trim().isNotEmpty()
         ) {
@@ -84,5 +84,5 @@ fun Register(
 @Composable
 fun RegisterPreview() {
     val username by remember { mutableStateOf("John Doe") }
-    Register(username = username, onUserNameChange = {}, onNavigate = {})
+    Register(username = username, onUserNameChange = {}, navigateToNext = {})
 }

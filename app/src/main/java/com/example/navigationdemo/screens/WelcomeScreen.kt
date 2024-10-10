@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Welcome(username: String?, onGoProfile: () -> Unit, onGoBack: () -> Unit) {
+fun Welcome(username: String?, navigateToProfile: () -> Unit, navigateBack: () -> Unit) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding).fillMaxSize(),
@@ -25,13 +25,13 @@ fun Welcome(username: String?, onGoProfile: () -> Unit, onGoBack: () -> Unit) {
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = { onGoProfile() }) {
+            Button(onClick = { navigateToProfile() }) {
                 Text("Set up your profile")
             }
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = { onGoBack() }) {
+            Button(onClick = { navigateBack() }) {
                 Text("Go back")
             }
         }
