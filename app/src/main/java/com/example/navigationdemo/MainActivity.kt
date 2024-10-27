@@ -30,6 +30,7 @@ fun MainScreen() {
 
     NavHost(navController = navController, startDestination = NavRoutes.Home.route) {
         composable(NavRoutes.Home.route) {
+            // TODO don't pass navController to Home
             Home(navController = navController)
         }
         composable(NavRoutes.Welcome.route + "/{userName}") { backstackEntry ->
