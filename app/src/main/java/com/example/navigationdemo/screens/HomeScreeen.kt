@@ -2,6 +2,7 @@ package com.example.navigationdemo.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -57,7 +58,7 @@ fun Register(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(16.dp).fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(value = username, onValueChange = onUserNameChange,
@@ -66,7 +67,7 @@ fun Register(
             supportingText = { if (username.isEmpty()) Text(text = "Please enter your name") }
         )
 
-        Spacer(modifier = Modifier.size(30.dp))
+        Spacer(modifier = Modifier.size(24.dp))
 
         Button(
             onClick = {

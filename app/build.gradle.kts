@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.navigationdemo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.navigationdemo"
@@ -68,5 +68,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //implementation(libs.androidx.navigation.compose) // obs
-    implementation("androidx.navigation:navigation-compose:2.8.2")
+    implementation("androidx.navigation:navigation-compose:2.8.7")
 }

@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.navigationdemo.screens.Home
 import com.example.navigationdemo.screens.Profile
-import com.example.navigationdemo.screens.Welcome
+import com.example.navigationdemo.screens.WelcomeScreen
 import com.example.navigationdemo.ui.theme.NavigationDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,11 +35,12 @@ fun MainScreen() {
         }
         composable(NavRoutes.Welcome.route + "/{userName}") { backstackEntry ->
             val username = backstackEntry.arguments?.getString("userName")
-            Welcome(
-                username = username,
+            val usernameNotNull = username ?: "Unknown"
+            WelcomeScreen(
+                username = usernameNotNull,
                 // navController should not be passed down to the composable
-                navigateToProfile = { navController.navigate(NavRoutes.Profile.route) },
-                navigateBack = { navController.popBackStack() })
+                onNavigateToProfile = { navController.navigate(NavRoutes.Profile.route) },
+                onNavigateBack = { navController.popBackStack() })
         }
         composable(
             NavRoutes.Profile.route
