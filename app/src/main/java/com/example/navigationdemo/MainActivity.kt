@@ -28,12 +28,16 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavRoutes.Home.route) {
+    NavHost(
+        navController = navController,
+        startDestination = NavRoutes.Home.route
+    ) {
         composable(NavRoutes.Home.route) {
             // TODO don't pass navController to Home
             Home(navController = navController)
         }
-        composable(NavRoutes.Welcome.route + "/{userName}") { backstackEntry ->
+        composable(NavRoutes.Welcome.route + "/{userName}")
+        { backstackEntry ->
             val username = backstackEntry.arguments?.getString("userName")
             val usernameNotNull = username ?: "Unknown"
             WelcomeScreen(
