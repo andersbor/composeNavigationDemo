@@ -24,6 +24,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// library dependencies
+// at the bottom of the dependencies in the build.gradle.kts file (app)
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()

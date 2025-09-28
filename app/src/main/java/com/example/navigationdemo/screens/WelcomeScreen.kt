@@ -16,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WelcomeScreen(username: String, onNavigateToProfile: () -> Unit, onNavigateBack: () -> Unit) {
+fun WelcomeScreen(username: String,
+                  onNavigateToProfile: () -> Unit,
+                  onNavigateBack: () -> Unit) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
