@@ -28,7 +28,7 @@ import com.example.navigationdemo.NavRoutes
 
 @OptIn(ExperimentalMaterial3Api::class) // TopAppBar
 @Composable
-fun Home(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController) {
     var userName by rememberSaveable { mutableStateOf("") }
 
     Scaffold(

@@ -8,8 +8,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.navigationdemo.screens.Home
-import com.example.navigationdemo.screens.Profile
+import com.example.navigationdemo.screens.HomeScreen
+import com.example.navigationdemo.screens.ProfileScreen
 import com.example.navigationdemo.screens.WelcomeScreen
 import com.example.navigationdemo.ui.theme.NavigationDemoTheme
 
@@ -36,7 +36,7 @@ fun MainScreen() {
     ) {
         composable(NavRoutes.Home.route) {
             // TODO don't pass navController to Home
-            Home(navController = navController)
+            HomeScreen(navController = navController)
         }
         composable(NavRoutes.Welcome.route + "/{userName}")
         { backstackEntry ->
@@ -52,7 +52,7 @@ fun MainScreen() {
             NavRoutes.Profile.route
             // animations https://developer.android.com/develop/ui/compose/animation/composables-modifiers#animatedcontent
         ) {
-            Profile()
+            ProfileScreen()
         }
     }
 }
